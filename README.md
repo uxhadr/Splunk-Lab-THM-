@@ -1,17 +1,29 @@
 # Splunk Lab (TryHackMe)
 
 ## Overview
-This lab was conducted as part of the TryHackMe SOC Level 2 course. The primary focus was on installing, configuring, and utilizing Splunk for log management and analysis on both Linux and Windows operating systems. The lab also included creating dashboards, reports, and custom data manipulation using Python scripts.
+I did this lab as part of the TryHackMe SOC Level 2 course. The primary focus was on installing, configuring, and utilizing Splunk for log management and analysis on both Linux and Windows operating systems. The lab also included creating dashboards, reports, and custom data manipulation using Python scripts.
 
 ## Installation and Configuration of Splunk
 
 ### Linux
 - **Downloading and Uncompressing Splunk**: I downloaded and uncompressed the Splunk package for installation.
-- **Accessing Splunk**: After the installation, I accessed the Splunk web interface to start configuring it.
-- **Installing Splunk Forwarder**: The Splunk Forwarder was installed and moved to the `/opt/` folder for efficient management.
-- **Configuring Listening Port**: Configured Splunk to listen on port `9997` to receive data from the forwarders.
-- **Creating an Index**: An index was created in Splunk to store all incoming data from the forwarders.
+<img width="733" alt="image" src="https://github.com/user-attachments/assets/352e0ad0-0e0a-4e10-9f3a-b41b9080950b">
 
+- **Accessing Splunk**: After the installation, I accessed the Splunk web interface to start configuring it.
+-\ ![Pasted Graphic 14](https://github.com/user-attachments/assets/3964afbd-8017-4bae-9ece-3ee8c95ddf2d)
+- **Installing Splunk Forwarder**: I installed the Splunk Forwarder and moved it to the `/opt/` directory.
+
+    Installing the Splunk forwarder <img width="1327" alt="image" src="https://github.com/user-attachments/assets/cf859b10-a3bc-46f6-9233-3082892f7d81">
+- **Configuring Listening Port**: Configured Splunk to listen on port `9997` to receive data from the forwarders.
+ ![Pasted Graphic 18](https://github.com/user-attachments/assets/b1ab1e4f-574f-45d8-b453-3068b7341158)
+- **Creating an Index**: I created an index  in Splunk to store all incoming data from the forwarders.
+- ![Pasted Graphic 19](https://github.com/user-attachments/assets/5deed616-10b2-451c-8177-ec5dafcd3b3f)
+- **Configuring Forwarder**: I configured the forwarder to ensure it sends data to the right destination by going to the `/opt/splunkforwarder/bin` directory and typing in the command: `./splunk add forward-server 10.10.128.83:9997`
+
+- **Monitoring `syslog` with Splunk Forwarder**: Configured Splunk Forwarder to monitor the `/var/log/syslog` file, enabling the ingestion of system logs into Splunk's `Linux_host` index. 
+  ```bash
+  ./splunk add monitor /var/log/syslog -index Linux_host
+  
 ### Windows
 - **Administrator Account Creation**: Created an administrator account for Splunk and installed it on a Windows machine.
 - **Configuring Data Reception**: Set up Splunk to receive data from the forwarder on port `9997`.

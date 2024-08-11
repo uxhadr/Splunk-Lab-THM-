@@ -84,8 +84,13 @@ I did this lab as part of the TryHackMe SOC Level 2 course. The primary focus wa
 - I restarted splunk and the changes were applied to the VPN logs.
   ![image](https://github.com/user-attachments/assets/16cd2107-ed1b-46c9-b431-f046181f9db3)
 ## Parsing Multi-line Events
-
-
+- Observing the events below, we see that Splunk is breaing 2-line events into 2 different events ans is unable to determine the boundaries.
+  ![image](https://github.com/user-attachments/assets/43d2c233-db6e-46ef-9efa-a4b7d4d54dd1)
+  Looking closely we can  see that each event starts with the term `authentication`, indicating the start of the event. We will use the regex pattern with the stanza `BREAK_ONLY_BEFORE` to fix this problem. 
+  ![image](https://github.com/user-attachments/assets/4e9e867c-126d-429b-9fac-a77911be6638)
+  I restarted Splunk and opened it to see that it was now able to  break the events how I inteded it to.
+  ![image](https://github.com/user-attachments/assets/32a8c085-df1a-4202-a6c3-b73c2cb1036d)
+  
 ## Conclusion
 This lab exercise provided hands-on experience in configuring and managing Splunk for both Linux and Windows environments. I learned how to effectively use Splunk's SPL, configure forwarders, create dashboards, and manipulate data using custom scripts and regular expressions.
 

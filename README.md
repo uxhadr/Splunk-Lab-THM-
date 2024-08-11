@@ -77,18 +77,20 @@ I did this lab as part of the TryHackMe SOC Level 2 course. The primary focus wa
 - ![image](https://github.com/user-attachments/assets/73dcb615-bb31-40b6-ab8d-90551808db88)
 - The above lines tell Splunk to run the script `vpnlogs` every 5 seconds and send the output to the `main` index with sourcetype `vpn_logs` and host value as `vpn_server`.
 
-- Viewed the VPN logs in splunk, but there was a problem since Splunk could not determine the boundaries of each event and considered multiple events as single events.
+- I viewed the VPN logs in Splunk, but there was a problem since Splunk could not determine the boundaries of each event and considered multiple events to be single events.
   ![image](https://github.com/user-attachments/assets/a1176fc6-0a6d-427e-b389-96b01789d321)
-- To fix the problem, I made changes to the `props.conf` file. I created a regex pattern to break events after disconnect or connect.
+- To fix the problem, I made changes to the `props.conf` file. I created a regex pattern to break events after DISCONNECT or CONNECT.
 ![image](https://github.com/user-attachments/assets/628507d8-5461-443f-819f-948b9ce244a4)
 - I restarted splunk and the changes were applied to the VPN logs.
   ![image](https://github.com/user-attachments/assets/16cd2107-ed1b-46c9-b431-f046181f9db3)
 ## Parsing Multi-line Events
-- Observing the events below, we see that Splunk is breaing 2-line events into 2 different events ans is unable to determine the boundaries.
+- Observing the events below, we see that Splunk is breaking 2-line events into 2 different events and is unable to determine the boundaries.
   ![image](https://github.com/user-attachments/assets/43d2c233-db6e-46ef-9efa-a4b7d4d54dd1)
-  Looking closely we can  see that each event starts with the term `authentication`, indicating the start of the event. We will use the regex pattern with the stanza `BREAK_ONLY_BEFORE` to fix this problem. 
+  Looking closely, we can see that each event starts with the term `Authentication` which indicates the start of the event.
+  We will use the regex pattern with the stanza `BREAK_ONLY_BEFORE` to fix this problem. 
   ![image](https://github.com/user-attachments/assets/4e9e867c-126d-429b-9fac-a77911be6638)
-  I restarted Splunk and opened it to see that it was now able to  break the events how I inteded it to.
+
+- I restarted Splunk and opened it to see that it was now breaking the events before the term `Authentication`.
   ![image](https://github.com/user-attachments/assets/32a8c085-df1a-4202-a6c3-b73c2cb1036d)
   
 ## Conclusion
